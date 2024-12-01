@@ -1,0 +1,40 @@
+.main{
+   
+}
+.lst  li{
+    list-style: none;
+    font-weight: bold;
+    font-size: large;
+}
+.blck{
+    color: black;
+}
+.lst li:hover{
+    color: #f7444e;
+    cursor: pointer;
+}
+.lst{
+    color: #f7444e;
+}
+
+.list::before{
+position: absolute;
+content: '';
+border-bottom: 4px solid #f7444e;
+width: 50px;
+bottom: 0px;
+}
+.cart{
+    background:none;
+}
+
+.hovr:hover{
+    color: #f7444e;
+    cursor: pointer;
+}
+
+.loginbtn{
+    background-color: #f7444e;
+    color: whitesmoke;
+    
+}
