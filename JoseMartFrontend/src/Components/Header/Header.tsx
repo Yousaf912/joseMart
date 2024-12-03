@@ -4,16 +4,24 @@ import { TiShoppingCart } from "react-icons/ti";
 import { FaCartPlus } from "react-icons/fa";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { MdOutlineMenu } from "react-icons/md";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 export const Header = () => {
     const navigation = useNavigate();
-;    const location = useLocation().pathname.split("/")[1];
+    ; const location = useLocation().pathname.split("/")[1];
     const [islogin, setisLogin] = useState(false);
 
-    const openlink=(name:any)=>{
-    navigation(name)
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if(token != null){
+            setisLogin(true)
+        }
+    }, [])
+
+
+    const openlink = (name: any) => {
+        navigation(name)
     }
     return (
         <div className="container-fluid pt-3">
@@ -44,7 +52,7 @@ export const Header = () => {
                                     </button>
                                 </div>}
                             <div className='col-5'>
-                                {islogin ? <IoPersonCircleOutline className={`fs-2 ${style.hovr}`} /> : <button onClick={()=>openlink('/login')} className={`border-0 px-4 py-1 rounded-3 ${style.loginbtn}`}>Login</button>
+                                {islogin ? <IoPersonCircleOutline className={`fs-2 ${style.hovr}`} /> : <button onClick={() => openlink('/login')} className={`border-0 px-4 py-1 rounded-3 ${style.loginbtn}`}>Login</button>
                                 }
 
                             </div>
@@ -52,7 +60,7 @@ export const Header = () => {
                     </div>
 
                     <div className='d-sm-none col-2 fs-1'>
-                        <MdOutlineMenu fs-1 />
+                        <MdOutlineMenu className='fs-1' />
 
                     </div>
                 </div>
