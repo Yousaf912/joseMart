@@ -1,61 +1,119 @@
-import { useState } from 'react'
-import img from '../../assets/slider-bg.jpg'
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { Header } from '../Header/Header'
 import style from './home.module.css'
+import { useEffect, useState } from "react";
+import img1 from '../../assets/baner1.png'
+import img2 from '../../assets/baner2.jpg'
+import img4 from '../../assets/baner4.jpg'
+
+
+
+
 export const Home = () => {
-    const [text, setText] = useState(0);
+    const [catagoryName, setCatagoryName] = useState([])
+    const [showcatagory, setshowCatagory] = useState(false);
+    const [img, setImg] = useState(0);
 
 
-    const sliderData = [
-        {
-            heading: 'Discover Endless Possibilities with Our Premium Selection of Products, Tailored Just for You ',
-            paragraph: 'At JoseMart, we offer a wide variety of top-quality products that cater to every style and need. Shop from exclusive collections, enjoy unbeatable prices.'
-        },
-        {
-            heading: 'Unleash the Power of Quality and Value in Every Product You Buy from Our Diverse Range ',
-            paragraph: 'From trendy outfits to the latest gadgets, discover products that combine style, function, and affordability, all with the convenience of shopping from home.'
-        },
-        {
-            heading: 'Elevate Your Everyday Life with Our Carefully Curated Collection of High-Quality',
-            paragraph: 'Whether upgrading your home or treating yourself to something special, our collection of carefully selected products makes shopping easy and fun., and experience shopping made simple'
+    const getCatagory = async () => {
+        try {
+            await fetch('http://localhost:3000/getcatagory').then(async (res) => {
+                const data = await res.json()
+                setCatagoryName(data.allCategories)
+            })
 
+
+        } catch (er) {
+            console.log(er);
         }
-    ]
+    }
+
+    useEffect(() => {
+        getCatagory();
+    }, [])
+
+    const imgs = [img1, img2, img4];
+    const pic = imgs[img]
 
     setTimeout(() => {
-        if (text == sliderData.length - 1) {
-            setText(0)
+        if ((imgs.length - 1) != img) {
+            setImg(img + 1)
         } else {
-            setText(text + 1)
+            setImg(0)
         }
-    }, 4000)
-    const data = sliderData[text]
+    }, 4000);
+
+
+    console.log(catagoryName);
+    
+
     return (
-        <div className="imgdiv position-relative col-12 ">
-            <img className={style.img} src={img} >
-            </img>
-            <div className={`${style.homdiv} position-absolute top-0`}>
-                <Header />
-
-                {/* ------------------------------------------------home section ---------------------------------------------- */}
-
-                <div className="container mt-5">
-                    <div className="row">
-                        <div className={`${style.datadiv} text-black col-md-7 col-lg-5 pt-5`}>
-                            <h2>
-                                {data.heading}
-                            </h2>
-                            <p className='mt-3'>{data.paragraph}</p>
-                            <div className=''>
-                                <button className={`${style.btn} border-0 p-2 rounded-3 px-3 text-white `}>Get Started</button>
+        <div >
+            <Header />
+            <div className={`${style.home}  `}>
+                <div className="container pt-5 pt-md-0">
+                    <div className="row pt-5 pt-md-4 pt-lg-0">
+                        <div className="d-md-flex flex-row">
+                            <div className="col-lg-2 col-6 position-relative">
+                                <div className="d-flex justify-content-around  ">
+                                    <h6>ALL CATEGORIES</h6>
+                                    <div className={`${style.catagory}`} onClick={() => setshowCatagory(!showcatagory)}>
+                                        {
+                                            showcatagory ?
+                                                <IoIosArrowUp className="fs-4" /> :
+                                                <IoIosArrowDown className="fs-4" />
+                                        }
+                                    </div>
+                                </div>
+                                {
+                                    showcatagory &&
+                                    <div className="position-absolute  bg-white border px-1 rounded-2 ">
+                                        {catagoryName.length !== 0 &&
+                                            catagoryName.map((val: any) => {
+                                                return (
+                                                    <ul className={`${style.list}`}>
+                                                        <li>{val.name}</li>
+                                                    </ul>
+                                                )
+                                            })
+                                        }
+                                    </div>}
                             </div>
+                            <div className={` col-md-10 d-none d-md-block `}>
+                                <div className={`d-flex flex-row flex-wrap justify-content-between ${style.list}`}>
+                                    {catagoryName.length !== 0 &&
+                                        catagoryName.slice(0, 8).map((val: any) => {
+                                            return (
+                                                <li>{val.name}</li>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
+                    {/* --------------------------------------------Slider -------------------------------------------- */}
+
+                    <div className={`${style.baner} mt-3`}>
+                        <img src={pic} />
+                    </div>
+
+                    {/* -------------------------------------------- catagory ------------------------------ */}
+                    <div className="mt-3">
+                        <h4>All Categories</h4>
+
+                    </div>
+
                 </div>
 
 
+
+
             </div>
-            
-        </div>
+        </div >
+
+
     )
 }
