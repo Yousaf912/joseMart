@@ -7,11 +7,14 @@ import img2 from '../../assets/signup2.png'
 import { CgProfile } from "react-icons/cg";
 import { useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
+import { setToken } from '../ReduxStore/ReduxSlice/tokenslice'
 
 
 const SignUplOGIN = () => {
     const location = useLocation().pathname.split("/")[1];
     const [erors, setErors] = useState<any>({})
+    const dispatch = useDispatch()
     const [data, setdata] = useState({
         name: '',
         mail: '',
@@ -86,14 +89,13 @@ const SignUplOGIN = () => {
                 })
             })
             const dta = await res.json();
-            console.log(res);
-            console.log(dta);
-            if(!res.ok){
+            if (!res.ok) {
                 toast.error(dta.message)
             }
-            else{
-              await  localStorage.setItem('token',dta.usertoken);
-              navigate('/home')
+            else {
+                await localStorage.setItem('token', dta.usertoken);
+                dispatch(setToken(dta.usertoken))
+                navigate('/home')
             }
 
 
@@ -102,6 +104,11 @@ const SignUplOGIN = () => {
 
         }
     }
+
+    const token = useSelector((state: any) => {
+        return state.tokenSate.token
+    })
+console.log(token);
 
 
     return (

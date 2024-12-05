@@ -7,6 +7,19 @@ import img2 from '../../assets/baner2.jpg'
 import img4 from '../../assets/baner4.jpg'
 
 
+import cat1 from '../../assets/beauty.jpg'
+import cat2 from '../../assets/fragrence.jpg'
+import cat3 from '../../assets/furniture.jpg'
+import cat4 from '../../assets/grocery.png'
+import cat5 from '../../assets/homedecore.jpeg'
+import cat6 from '../../assets/kitchecn.jpg'
+import cat7 from '../../assets/laptop.jpg'
+import cat8 from '../../assets/manshirt.jpg'
+import cat9 from '../../assets/manshoes.jpg'
+import cat10 from '../../assets/watch.jpg'
+import cat11 from '../../assets/bikes.jpg'
+import { HomeProducts } from "./Homeproducts";
+
 
 
 export const Home = () => {
@@ -14,6 +27,7 @@ export const Home = () => {
     const [showcatagory, setshowCatagory] = useState(false);
     const [img, setImg] = useState(0);
 
+    const CatagoryImgs = [cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10, cat11]
 
     const getCatagory = async () => {
         try {
@@ -44,9 +58,6 @@ export const Home = () => {
     }, 4000);
 
 
-    console.log(catagoryName);
-    
-
     return (
         <div >
             <Header />
@@ -67,7 +78,7 @@ export const Home = () => {
                                 </div>
                                 {
                                     showcatagory &&
-                                    <div className="position-absolute  bg-white border px-1 rounded-2 ">
+                                    <div className="position-absolute   bg-white border px-1 rounded-2 ">
                                         {catagoryName.length !== 0 &&
                                             catagoryName.map((val: any) => {
                                                 return (
@@ -82,9 +93,9 @@ export const Home = () => {
                             <div className={` col-md-10 d-none d-md-block `}>
                                 <div className={`d-flex flex-row flex-wrap justify-content-between ${style.list}`}>
                                     {catagoryName.length !== 0 &&
-                                        catagoryName.slice(0, 8).map((val: any) => {
+                                        catagoryName.slice(0, 8).map((val: any,i:number) => {
                                             return (
-                                                <li>{val.name}</li>
+                                                <li key={i}>{val.name}</li>
                                             )
                                         })
                                     }
@@ -104,7 +115,25 @@ export const Home = () => {
                     <div className="mt-3">
                         <h4>All Categories</h4>
 
+                        <div>
+                            <div className="d-flex  mb-5  flex-wrap justify-content-between ">
+                                {catagoryName.length !== 0 &&
+                                    catagoryName.slice(0, 11).map((val: any, i: number) => (
+                                        <div key={i} className="ms-5 text-center">
+                                            <div className={`${style.catimg}`}>
+                                                <img src={`${CatagoryImgs[i]}`} />
+                                            </div>
+                                            <h6>{val.name}</h6>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+
+
+                        </div>
+
                     </div>
+                    <HomeProducts/>
 
                 </div>
 
