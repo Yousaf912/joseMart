@@ -51,8 +51,11 @@ export const HomeProducts = () => {
                         "Authorization":`Bearer ${token}`
                     }
                 }).then(async(res)=>{
-                    const user = await res.json()
-                   navigate(`/home/products/${id}`)
+                    const user = await res.json();
+                    const userid = user.user.finduser._id
+                   await localStorage.setItem('userid',userid)
+                    
+                   navigate(`/home/product/${id}`)
                 })
             }
 

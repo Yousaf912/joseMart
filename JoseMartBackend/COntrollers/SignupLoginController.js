@@ -35,7 +35,7 @@ const SignupLoginCOntroller = {
                     res.status(400).send({ message: "wrong password" })
                 } else {
                     const token = await jwt.sign({ finduser }, key)
-                    res.status(201).send({ usertoken: token })
+                    res.status(201).send({user:finduser, usertoken: token })
                 }
             }
 

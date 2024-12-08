@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { Loder } from "../Loader"
 import style from './Product.module.css'
 import { IoPersonCircleOutline } from "react-icons/io5";
+import { toast, ToastContainer } from "react-toastify"
 
 
 export const SingleProduct = () => {
@@ -12,7 +13,6 @@ export const SingleProduct = () => {
     const [product, setProduct] = useState<any>({});
     const [img, setimg] = useState();
     const productid = useParams();
-    console.log(productid.id);
 
     const getSingleProduct = async () => {
         try {
@@ -31,16 +31,52 @@ export const SingleProduct = () => {
         getSingleProduct()
     }, [])
 
-    console.log(product);
-
     const changeimg = (url: any) => {
         setimg(url)
     }
 
+    console.log(product);
+    
+    const addtocart = async (id: any,img:any,sku:any,price:any,size:any,title:any) => {
+        const obj = {
+            productId: id,
+            quentity: 1,
+            title,
+            size,
+            price,
+            sku,
+            img
+        }
+        const userid = localStorage.getItem('userid');
+        if (!userid) {
+            toast.error('plase first login')
+        } else {
+            try {
+                const addproduct = await fetch(`http://localhost:3000/addproduct/${userid}`, {
+                    method: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(obj)
+                })
+                const data = await addproduct.json();
+                if(addproduct.ok){
+                    toast.success(data.message)
+                }else{
+                    toast.error(data.message)
+                }
+
+            } catch (er) {
+                console.log(er);
+            }
+        }
+    }
 
     return (
         <div>
+            <ToastContainer />
             <Header />
+
             {
                 loader ?
                     <div className={`${style.loder} text-center  `}>
@@ -89,7 +125,7 @@ export const SingleProduct = () => {
                                         <h5 className="mt-4">About this item :</h5>
                                         <p >{product.description}</p>
                                         <div>
-                                            <button className={`${style.btn} text-white rounded-3 py-2 px-3 mb-3`}>Add to Cart</button>
+                                            <button onClick={() => addtocart(product.id,product.thumbnail,product.sku,product.price,product.weight,product.title)} className={`${style.btn} text-white rounded-3 py-2 px-3 mb-3`}>Add to Cart</button>
                                         </div>
                                         <div >
                                             <h6 className=" border-bottom border-2 pb-2" >More Details : </h6>
@@ -138,7 +174,7 @@ export const SingleProduct = () => {
                                                 <h6>rating: {rev.rating}</h6>
                                                 <p className="ms-5 mt-1"> review at {rev.date}</p>
                                             </div>
-                                                <p>"{rev.comment}"</p>
+                                            <p>"{rev.comment}"</p>
                                         </div>
                                     )
                                 })}

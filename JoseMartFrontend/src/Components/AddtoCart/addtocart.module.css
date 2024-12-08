@@ -1,0 +1,19 @@
+.btn:hover{
+color: #f7444e;
+cursor: pointer;
+transform: scale(1.4);
+}
+.btn{
+    transition: transform 1.5s ease; 
+}
+
+.delete{
+    transition: transform 1.5s ease;
+    color: #f7444e;
+}
+
+
+.delete:hover{
+    cursor: pointer;
+    transform: scale(1.3);
+}

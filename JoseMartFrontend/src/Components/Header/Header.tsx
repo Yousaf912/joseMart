@@ -4,14 +4,15 @@ import { TiShoppingCart } from "react-icons/ti";
 import { FaCartPlus } from "react-icons/fa";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { MdOutlineMenu } from "react-icons/md";
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ImSearch } from "react-icons/im";
+import { toast, ToastContainer } from 'react-toastify';
 
 
 export const Header = () => {
     const navigation = useNavigate();
-    ; const location = useLocation().pathname.split("/")[1];
     const [islogin, setisLogin] = useState(false);
+    const inputvalue = useRef<any>('')
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -24,18 +25,32 @@ export const Header = () => {
     const openlink = (name: any) => {
         navigation(name)
     }
+
+    const searchProduct = () => {
+        const querry = inputvalue.current.value;
+        const fnal = querry.replace(/\s+/g, '');
+        if (!querry) {
+            toast.error('Please type something')
+        } else {
+            navigation(`/searchProduct/${fnal}`)
+        }
+
+    }
+
+
     return (
         <div className={`${style.main} container-fluid pt-3 position-fixed bg-white `}>
+            <ToastContainer />
             <div className="container-fluid">
                 <div className="row d-flex justify-content-between align-items-center">
                     <div className="text-black  col-5 col-sm-4  col-md-3 col-xl-2 d-flex justify-content-evenly  align-items-center">
                         <TiShoppingCart className={`fs-1`} style={{ color: '#f7444e' }} />
-                        <h2>Jose.<span style={{ color: "#f7444e" }}>M</span>art</h2>
+                        <h2 style={{ cursor: 'pointer' }} onClick={() => openlink('/home')} >Jose.<span style={{ color: "#f7444e" }}>M</span>art</h2>
                     </div>
                     <div className='col-12 col-md-6 order-1 order-md-0  '>
                         <div className={`${style.serch}  border border-black d-flex justify-content-between rounded-5  `}>
-                            <input className=' ms-3' type="text" placeholder='Serach items here .....' />
-                            <button className=''><ImSearch className='fs-3' />
+                            <input ref={inputvalue} className=' ms-3' type="text" placeholder='Serach items here .....' />
+                            <button onClick={searchProduct} className=''><ImSearch className='fs-3' />
                             </button>
                         </div>
                     </div>
@@ -44,7 +59,7 @@ export const Header = () => {
                             {islogin &&
                                 <div className="col-7  text-end">
                                     <button type="button" className={`position-relative border-0 ${style.cart}`}>
-                                        <FaCartPlus className={`fs-3 ${style.hovr}`} />
+                                        <FaCartPlus className={`fs-3 ${style.hovr}`} onClick={()=>openlink('/home/addtocart')} />
                                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                             99+
                                             <span className="visually-hidden">unread messages</span>

@@ -5,7 +5,8 @@ import { AllProucts } from "./ReduxSlice/AllProducts";
 export const store = configureStore({
     reducer:{
         tokenSate:TokenSLice.reducer,
-        allProducts:AllProucts.reducer
+        allProducts:AllProucts.reducer,
+     
     }
 
 })

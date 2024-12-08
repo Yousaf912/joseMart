@@ -89,11 +89,14 @@ const SignUplOGIN = () => {
                 })
             })
             const dta = await res.json();
+          
             if (!res.ok) {
                 toast.error(dta.message)
             }
             else {
+
                 await localStorage.setItem('token', dta.usertoken);
+                await localStorage.setItem('userid',dta.user._id)
                 dispatch(setToken(dta.usertoken))
                 navigate('/home')
             }
