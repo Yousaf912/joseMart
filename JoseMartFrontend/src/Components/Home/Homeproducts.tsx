@@ -52,6 +52,8 @@ export const HomeProducts = () => {
                     }
                 }).then(async(res)=>{
                     const user = await res.json();
+                    console.log(user);
+                    
                     const userid = user.user.finduser._id
                    await localStorage.setItem('userid',userid)
                     
@@ -82,7 +84,7 @@ export const HomeProducts = () => {
                             {products.length != 0 &&
                                 products.map((val: any, i: number) => {
                                     return (
-                                        <div onClick={()=>openproduct(val.id)} key={i} className={`${style.card} col-3 d-flex flex-column justify-content-between border rounded-4 mt-3 shadow ms-1`}>
+                                        <div onClick={()=>openproduct(val.id)} key={i} className={`${style.card} col-md-3 col-sm-5 d-flex flex-column justify-content-between border rounded-4 mt-3 shadow ms-1`}>
                                             <div className={`${style.crdimg}`}>
                                                 <img src={val.images[0]} />
                                             </div>

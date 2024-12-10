@@ -114,7 +114,47 @@ const ProductsController = {
 
         }catch(er){throw er}
 
+    },
+
+    increaseOrderQuantity: async (req, res) => {
+        try {
+            const { userid, productid } = req.params;
+            
+           
+            const userExist = await User.findById(userid);
+            if (!userExist) {
+                return res.status(404).send({ message: 'User not found' });
+            }
+            const productInCart = userExist.cart.find(item => item._id == productid);
+            productInCart.quentity = req.body.quentity;
+            await userExist.save().then(()=>{
+                res.status(200).send({message:'updated'})
+            })
+
+    
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    },
+    
+    deletProuct:async(req,res)=>{
+        try{
+            const {userid,objectid} =req.params;
+            const finduser = await User.findById({_id:userid});
+            if(!finduser){
+                res.status(404).send({message:'user not found'})
+            }else{
+                const findndex = finduser.cart.findIndex(item=>item._id == objectid);
+                finduser.cart.splice(findndex,1)
+                await finduser.save().then(()=>{
+                    res.status(200).send({message:"poduct is deleted"})
+                })
+            }
+
+        }catch(er){throw er}
     }
+    
 
 
 };

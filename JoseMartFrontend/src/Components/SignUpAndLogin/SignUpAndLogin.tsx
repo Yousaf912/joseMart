@@ -1,5 +1,5 @@
 
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import {  useLocation, useNavigate } from 'react-router-dom'
 import { Header } from '../Header/Header'
 import style from './SignUpLOgin.module.css'
 import img1 from '../../assets/signup.png'
@@ -8,7 +8,7 @@ import { CgProfile } from "react-icons/cg";
 import { useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
-import { setToken } from '../ReduxStore/ReduxSlice/tokenslice'
+
 
 
 const SignUplOGIN = () => {
@@ -89,7 +89,7 @@ const SignUplOGIN = () => {
                 })
             })
             const dta = await res.json();
-          
+           
             if (!res.ok) {
                 toast.error(dta.message)
             }
@@ -97,11 +97,8 @@ const SignUplOGIN = () => {
 
                 await localStorage.setItem('token', dta.usertoken);
                 await localStorage.setItem('userid',dta.user._id)
-                dispatch(setToken(dta.usertoken))
                 navigate('/home')
             }
-
-
         } catch (er) {
             console.log(er);
 
@@ -111,14 +108,12 @@ const SignUplOGIN = () => {
     const token = useSelector((state: any) => {
         return state.tokenSate.token
     })
-console.log(token);
-
 
     return (
         <div className={style.main}>
             <ToastContainer />
             <Header />
-            <div className={`container mb-5`}>
+            <div className={`container mb-5 pt-5`}>
                 <div className="row">
                     <div className="col-12 d-md-flex mt-4 align-items-center">
                         <div className={`${style.imgsection} col-md-6`}>

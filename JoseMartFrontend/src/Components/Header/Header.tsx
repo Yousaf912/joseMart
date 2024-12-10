@@ -7,12 +7,18 @@ import { MdOutlineMenu } from "react-icons/md";
 import { useEffect, useRef, useState } from 'react';
 import { ImSearch } from "react-icons/im";
 import { toast, ToastContainer } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 
 export const Header = () => {
     const navigation = useNavigate();
     const [islogin, setisLogin] = useState(false);
-    const inputvalue = useRef<any>('')
+    const inputvalue = useRef<any>('');
+    const [cartdata,setCartdata]=useState(0)
+    const triger = useSelector((store:any)=>store.triger);
+    console.log(triger);
+    
+    
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -34,8 +40,28 @@ export const Header = () => {
         } else {
             navigation(`/searchProduct/${fnal}`)
         }
-
     }
+
+    
+
+    const getCartData =async()=>{
+        const userid  = localStorage.getItem('userid')
+        if(userid){
+            try{
+                await fetch(`http://localhost:3000/getcartdata/${userid}`).then(async(res)=>{
+                    const fnal = await res.json();
+                    setCartdata(fnal.products.length)
+                    console.log(fnal.products.length);
+                    
+                })
+            }catch(er){console.log(er);
+            }
+        }
+    }
+
+    useEffect(()=>{
+        getCartData()
+    },[triger])
 
 
     return (
@@ -61,7 +87,7 @@ export const Header = () => {
                                     <button type="button" className={`position-relative border-0 ${style.cart}`}>
                                         <FaCartPlus className={`fs-3 ${style.hovr}`} onClick={()=>openlink('/home/addtocart')} />
                                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                            99+
+                                            {cartdata}
                                             <span className="visually-hidden">unread messages</span>
                                         </span>
                                     </button>

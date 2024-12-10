@@ -44,8 +44,11 @@ export const Home = () => {
         }
     }
 
+    
+
     useEffect(() => {
         getCatagory();
+      
     }, [])
 
     const imgs = [img1, img2, img4];

@@ -13,6 +13,8 @@ router.get('/getproductbycategory/:name',ProductsController.getProductsByCategor
 router.get('/searchproduct/:querry',ProductsController.searchProduct);
 router.put('/addproduct/:id',ProductsController.addtoCart);
 router.get('/getcartdata/:id',ProductsController.getcartdata)
+router.put('/increase/:userid/:productid',ProductsController.increaseOrderQuantity)
+router.delete('/delete/:userid/:objectid',ProductsController.deletProuct)
 
 
 module.exports = router;

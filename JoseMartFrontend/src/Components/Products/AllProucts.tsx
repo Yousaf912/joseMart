@@ -78,8 +78,8 @@ export const AllProductsPage = () => {
         <div className="">
             <Header />`
         
-            <div className={`mt-5 pt-5 d-flex ${products.length !== 0 && 'justify-content-between' } `}>
-                <div className="category col-2 ">
+            <div className={`mt-5 pt-5 d-md-flex ${products.length !== 0 && 'justify-content-between' } `}>
+                <div className="category col-md-3 col-lg-2 ">
                     {category.length == 0 ?
                         <div>
                             <Loder />
@@ -102,7 +102,7 @@ export const AllProductsPage = () => {
                     <h1>No data found</h1>
                 </div>:
             
-                <div className="products col-9">
+                <div className="products col-lg-9">
                     <div className="container">
                         <div className="row">
 
@@ -116,7 +116,7 @@ export const AllProductsPage = () => {
                             {products.length != 0 &&
                                 products.map((val: any, i: number) => {
                                     return (
-                                        <div onClick={()=>openproduct(val.id)} key={i} className={`${style.card} col-3 d-flex flex-column justify-content-between border rounded-4 mt-3 shadow ms-1`}>
+                                        <div onClick={()=>openproduct(val.id)} key={i} className={`${style.card} col-sm-5 col-lg-3 d-flex flex-column justify-content-between border rounded-4 mt-3 shadow ms-1`}>
                                             <div className={`${style.crdimg}`}>
                                                 <img src={val.images[0]} />
                                             </div>

@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import TokenSLice from "./ReduxSlice/tokenslice";
 import { AllProucts } from "./ReduxSlice/AllProducts";
+import triger from "./ReduxSlice/tokenslice";
 
 export const store = configureStore({
     reducer:{
-        tokenSate:TokenSLice.reducer,
+        triger:triger.reducer,
         allProducts:AllProucts.reducer,
      
     }

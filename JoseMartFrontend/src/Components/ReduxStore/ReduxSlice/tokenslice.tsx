@@ -1,18 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const TokenSLice = createSlice({
+const triger = createSlice({
     name:'Tokenslice',
-    initialState:{
-        token:null
-    },
+    initialState:false,
     reducers:{
-        setToken:(state,action)=>{
-           state.token= action.payload
+        setTriger:(state,action)=>{
+           state= action.payload
             
         }
     }
 })
 
-export default TokenSLice;
+export default triger;
 
-export const {setToken} = TokenSLice.actions
+export const {setTriger} = triger.actions

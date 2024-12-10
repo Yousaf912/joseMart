@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Header } from "../Header/Header"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
@@ -6,6 +6,7 @@ import { Loder } from "../Loader"
 import style from './Product.module.css'
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { toast, ToastContainer } from "react-toastify"
+import { setTriger } from "../ReduxStore/ReduxSlice/tokenslice"
 
 
 export const SingleProduct = () => {
@@ -13,6 +14,7 @@ export const SingleProduct = () => {
     const [product, setProduct] = useState<any>({});
     const [img, setimg] = useState();
     const productid = useParams();
+    const dispatch = useDispatch();
 
     const getSingleProduct = async () => {
         try {
@@ -35,8 +37,6 @@ export const SingleProduct = () => {
         setimg(url)
     }
 
-    console.log(product);
-    
     const addtocart = async (id: any,img:any,sku:any,price:any,size:any,title:any) => {
         const obj = {
             productId: id,
@@ -61,7 +61,8 @@ export const SingleProduct = () => {
                 })
                 const data = await addproduct.json();
                 if(addproduct.ok){
-                    toast.success(data.message)
+                    toast.success(data.message);
+                    dispatch(setTriger(true))
                 }else{
                     toast.error(data.message)
                 }
@@ -85,8 +86,8 @@ export const SingleProduct = () => {
                     <div className={`${style.main} mb-5`}>
                         <div className="container">
                             <div className="row  ">
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <div className="col-4 ">
+                                <div className="d-lg-flex justify-content-between align-items-center ">
+                                    <div className="col-lg-4 mb-4 mb-lg-0 ">
                                         <div className={`${style.thumbnail}  text-center `}>
                                             <img src={img} className="border-primary" />
                                         </div>
@@ -104,7 +105,7 @@ export const SingleProduct = () => {
 
 
                                     </div>
-                                    <div className="col-6 ">
+                                    <div className="col-lg-6 ">
                                         <h1>{product.title}</h1>
                                         <div className="d-flex justify-content-between">
                                             <div className="d-flex justify-content-between">
