@@ -105,10 +105,6 @@ const SignUplOGIN = () => {
         }
     }
 
-    const token = useSelector((state: any) => {
-        return state.tokenSate.token
-    })
-
     return (
         <div className={style.main}>
             <ToastContainer />

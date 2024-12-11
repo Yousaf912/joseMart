@@ -6,6 +6,9 @@ import { CiSquarePlus } from "react-icons/ci";
 import { CgRemoveR } from "react-icons/cg";
 import style from './addtocart.module.css'
 import { toast, ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { setTriger } from "../ReduxStore/ReduxSlice/tokenslice";
+import { useNavigate } from "react-router-dom";
 
 export const AddtoCart = () => {
     const userid = localStorage.getItem('userid');
@@ -13,7 +16,11 @@ export const AddtoCart = () => {
     const [loder, setLoader] = useState(true);
     const [qn, setQn] = useState(false);
     const [subtotal, setSubtotal] = useState<number>(0);
-    let tax = 20
+    let tax = 20;
+    
+    const triger = useSelector((state:any)=>state.triger.triger)
+    const dispatch=useDispatch();
+    const navigate = useNavigate()
 
     const getCartData = async () => {
         try {
@@ -77,6 +84,7 @@ export const AddtoCart = () => {
                 const fnal = await res.json();
 
                 if (fnal.message == 'poduct is deleted') {
+                    dispatch(setTriger(!triger))
                     setQn(!qn);
                 }
             });
@@ -96,6 +104,10 @@ export const AddtoCart = () => {
         }
     }, [cartdata]);
 
+    const openproduct=(id:any)=>{
+        navigate(`/home/product/${id}`)
+    }
+
     return (
         <div>
             <ToastContainer />
@@ -113,7 +125,7 @@ export const AddtoCart = () => {
                                         {cartdata.map((val: any, i: number) => {
                                             return (
                                                 <div key={i} className=" d-sm-flex justify-content-between  border mt-3 shadow border-2 p-2 rounded-4">
-                                                    <div className="d-flex col-6 ">
+                                                    <div style={{cursor:'pointer'}} onClick={()=>openproduct(val.productId)} className="d-flex col-6 ">
                                                         <img src={val.img} width={100} />
                                                         <div className="ms-2 ">
                                                             <h5>{val.title}</h5>
@@ -174,7 +186,7 @@ export const AddtoCart = () => {
                                 <div className="border-top border-2 mt-3 pt-2 d-flex justify-content-between">
                                     <h6>Total</h6>
                                     <h6>
-                                        $ {tax + subtotal}
+                                        $ {subtotal+tax}
                                     </h6>
                                 </div>
                                 <button className={`${style.paybtn} py-1 px-3 rounded-2 `}>Pay Now</button>

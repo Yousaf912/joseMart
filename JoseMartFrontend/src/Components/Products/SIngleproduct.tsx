@@ -15,6 +15,7 @@ export const SingleProduct = () => {
     const [img, setimg] = useState();
     const productid = useParams();
     const dispatch = useDispatch();
+    const triger = useSelector((state:any)=>state.triger.triger)
 
     const getSingleProduct = async () => {
         try {
@@ -37,7 +38,7 @@ export const SingleProduct = () => {
         setimg(url)
     }
 
-    const addtocart = async (id: any,img:any,sku:any,price:any,size:any,title:any) => {
+    const addtocart = async (id: any,img:any,sku:any,price:any,size:any,title:any,) => {
         const obj = {
             productId: id,
             quentity: 1,
@@ -45,7 +46,8 @@ export const SingleProduct = () => {
             size,
             price,
             sku,
-            img
+            img,
+            
         }
         const userid = localStorage.getItem('userid');
         if (!userid) {
@@ -62,11 +64,11 @@ export const SingleProduct = () => {
                 const data = await addproduct.json();
                 if(addproduct.ok){
                     toast.success(data.message);
-                    dispatch(setTriger(true))
+                    dispatch(setTriger(!triger))
                 }else{
                     toast.error(data.message)
                 }
-
+                
             } catch (er) {
                 console.log(er);
             }
@@ -75,7 +77,6 @@ export const SingleProduct = () => {
 
     return (
         <div>
-            <ToastContainer />
             <Header />
 
             {

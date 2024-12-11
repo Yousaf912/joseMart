@@ -15,8 +15,8 @@ export const Header = () => {
     const [islogin, setisLogin] = useState(false);
     const inputvalue = useRef<any>('');
     const [cartdata,setCartdata]=useState(0)
-    const triger = useSelector((store:any)=>store.triger);
-    console.log(triger);
+    const triger = useSelector((store:any)=>store.triger.triger);
+   
     
     
 
@@ -51,8 +51,7 @@ export const Header = () => {
                 await fetch(`http://localhost:3000/getcartdata/${userid}`).then(async(res)=>{
                     const fnal = await res.json();
                     setCartdata(fnal.products.length)
-                    console.log(fnal.products.length);
-                    
+                
                 })
             }catch(er){console.log(er);
             }

@@ -11,9 +11,7 @@ export const AllProductsPage = () => {
     const [loader, setLoader] = useState(true);
     const [products, setproducts] = useState([]);
     const location = useLocation().pathname.split("/")[2];
-    console.log(location);
-    
-
+   
 
     const getCategory = async () => {
         try {
@@ -71,8 +69,6 @@ export const AllProductsPage = () => {
         naigate(`/home/product/${id}`)
     }
 
-    console.log(products.length);
-    
 
     return (
         <div className="">
