@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { Loder } from "../Loader"
 import style from './Product.module.css'
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { toast, ToastContainer } from "react-toastify"
+import { toast } from "react-toastify"
 import { setTriger } from "../ReduxStore/ReduxSlice/tokenslice"
 import { Footer } from "../Footer/Footer"
 

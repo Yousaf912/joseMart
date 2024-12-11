@@ -5,9 +5,7 @@ export const CenterElement = ()=>{
     console.log(location);
     
     let element;
-    const obj={
-
-    }
+    
     return(
         <div>
             {element}

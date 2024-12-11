@@ -7,14 +7,12 @@ import img2 from '../../assets/signup2.png'
 import { CgProfile } from "react-icons/cg";
 import { useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
-import { useDispatch, useSelector } from 'react-redux'
 
 
 
 const SignUplOGIN = () => {
     const location = useLocation().pathname.split("/")[1];
     const [erors, setErors] = useState<any>({})
-    const dispatch = useDispatch()
     const [data, setdata] = useState({
         name: '',
         mail: '',

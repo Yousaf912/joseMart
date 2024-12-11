@@ -1,9 +1,8 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import style from './Header.module.css'
 import { TiShoppingCart } from "react-icons/ti";
 import { FaCartPlus } from "react-icons/fa";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { MdOutlineMenu } from "react-icons/md";
 import { useEffect, useRef, useState } from 'react';
 import { ImSearch } from "react-icons/im";
 import { toast, ToastContainer } from 'react-toastify';
@@ -16,10 +15,6 @@ export const Header = () => {
     const inputvalue = useRef<any>('');
     const [cartdata, setCartdata] = useState(0)
     const triger = useSelector((store: any) => store.triger.triger);
-    const [showmenuItems, setMenuitems] = useState(false)
-
-
-
 
     useEffect(() => {
         const token = localStorage.getItem('token');
