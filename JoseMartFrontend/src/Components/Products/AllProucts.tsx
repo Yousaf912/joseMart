@@ -3,6 +3,7 @@ import { Header } from "../Header/Header"
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Loder } from "../Loader";
 import style from './Product.module.css'
+import { Footer } from "../Footer/Footer";
 
 export const AllProductsPage = () => {
     const [category, setCatgeory] = useState([]);
@@ -138,6 +139,7 @@ export const AllProductsPage = () => {
 
                 </div>}
             </div>
+            {/* <Footer/> */}
         </div>
     )
 }

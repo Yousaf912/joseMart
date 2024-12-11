@@ -7,6 +7,7 @@ import style from './Product.module.css'
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { toast, ToastContainer } from "react-toastify"
 import { setTriger } from "../ReduxStore/ReduxSlice/tokenslice"
+import { Footer } from "../Footer/Footer"
 
 
 export const SingleProduct = () => {
@@ -186,6 +187,7 @@ export const SingleProduct = () => {
 
                     </div>
             }
+            <Footer/>
         </div>
     )
 }

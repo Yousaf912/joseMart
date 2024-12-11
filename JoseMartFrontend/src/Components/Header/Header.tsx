@@ -14,11 +14,12 @@ export const Header = () => {
     const navigation = useNavigate();
     const [islogin, setisLogin] = useState(false);
     const inputvalue = useRef<any>('');
-    const [cartdata,setCartdata]=useState(0)
-    const triger = useSelector((store:any)=>store.triger.triger);
-   
-    
-    
+    const [cartdata, setCartdata] = useState(0)
+    const triger = useSelector((store: any) => store.triger.triger);
+    const [showmenuItems, setMenuitems] = useState(false)
+
+
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -42,25 +43,26 @@ export const Header = () => {
         }
     }
 
-    
 
-    const getCartData =async()=>{
-        const userid  = localStorage.getItem('userid')
-        if(userid){
-            try{
-                await fetch(`http://localhost:3000/getcartdata/${userid}`).then(async(res)=>{
+
+    const getCartData = async () => {
+        const userid = localStorage.getItem('userid')
+        if (userid) {
+            try {
+                await fetch(`http://localhost:3000/getcartdata/${userid}`).then(async (res) => {
                     const fnal = await res.json();
                     setCartdata(fnal.products.length)
-                
+
                 })
-            }catch(er){console.log(er);
+            } catch (er) {
+                console.log(er);
             }
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getCartData()
-    },[triger])
+    }, [triger])
 
 
     return (
@@ -79,12 +81,12 @@ export const Header = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="col-2   col-md-2 col-lg-3  col-xl-2 d-none d-sm-block ">
+                    <div className="col-4 col-sm-3   col-md-2 col-lg-3  col-xl-2 ">
                         <div className="row">
                             {islogin &&
                                 <div className="col-7  text-end">
                                     <button type="button" className={`position-relative border-0 ${style.cart}`}>
-                                        <FaCartPlus className={`fs-3 ${style.hovr}`} onClick={()=>openlink('/home/addtocart')} />
+                                        <FaCartPlus className={`fs-3 ${style.hovr}`} onClick={() => openlink('/home/addtocart')} />
                                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                             {cartdata}
                                             <span className="visually-hidden">unread messages</span>
@@ -99,10 +101,8 @@ export const Header = () => {
                         </div>
                     </div>
 
-                    <div className='d-sm-none col-2 fs-1'>
-                        <MdOutlineMenu className='fs-1' />
+                  
 
-                    </div>
                 </div>
             </div>
         </div>

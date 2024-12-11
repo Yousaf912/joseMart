@@ -17,6 +17,7 @@ export const AddtoCart = () => {
     const [qn, setQn] = useState(false);
     const [subtotal, setSubtotal] = useState<number>(0);
     let tax = 20;
+    let total = tax+subtotal
     
     const triger = useSelector((state:any)=>state.triger.triger)
     const dispatch=useDispatch();
@@ -173,7 +174,7 @@ export const AddtoCart = () => {
                                 <h5 className="text-danger">Order Summary</h5>
                                 <div className="d-flex justify-content-between mt-4">
                                     <h6>Subtotal : </h6>
-                                    <h6>$ {subtotal}</h6>
+                                    <h6>$ {subtotal.toFixed(2)}</h6>
                                 </div>
                                 <div className="d-flex justify-content-between mt-2">
                                     <h6>Estimated TAX : </h6>
@@ -186,7 +187,7 @@ export const AddtoCart = () => {
                                 <div className="border-top border-2 mt-3 pt-2 d-flex justify-content-between">
                                     <h6>Total</h6>
                                     <h6>
-                                        $ {subtotal+tax}
+                                        $ {total.toFixed(2)}
                                     </h6>
                                 </div>
                                 <button className={`${style.paybtn} py-1 px-3 rounded-2 `}>Pay Now</button>

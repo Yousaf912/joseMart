@@ -18,10 +18,14 @@
 .list li {
     list-style: none;
     cursor: pointer;
+    padding: 3px;
+    text-align: center;
 }
 
 .list li:hover {
-    color: #f7444e;
+    color: white;
+    background-color: #f7444e;
+    border-radius: 5px;
 }
 
 .catagory {
